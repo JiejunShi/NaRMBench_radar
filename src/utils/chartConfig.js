@@ -1,7 +1,7 @@
 /**
- * 将 HEX 颜色代码转换为 HSL 字符串。
- * @param {string} hex - #RRGGBB 格式的颜色代码。
- * @returns {string} - `hsl(h, s%, l%)` 格式的字符串。
+ * Converts a HEX color code to an HSL string.
+ * @param {string} hex - Color code in #RRGGBB format.
+ * @returns {string} - String in `hsl(h, s%, l%)` format.
  */
 
 export function hexToHsl(hex) {
@@ -34,7 +34,7 @@ export function hexToHsl(hex) {
 }
 
 /**
- * 预设的模型颜色映射表 (HSL格式)。
+ * Preset model color mapping table (in HSL format).
  */
 export const modelColorMap = {
     'm6Anet': hexToHsl('#2e3792'), // hsl(236, 54%, 38%)
@@ -53,7 +53,7 @@ export const modelColorMap = {
     'ELIGOS': hexToHsl('#cca814'), // hsl(46, 83%, 44%)
     'ELIGOS_diff': hexToHsl('#c5781a'), // hsl(33, 78%, 45%)
     'MINES': hexToHsl('#7b5223'), // hsl(31, 55%, 31%)
-    'Epinano_delta': hexToHsl('#c896c8'), // hsl(300, 31%, 68%)
+    'EpiNano_delta': hexToHsl('#c896c8'), // hsl(300, 31%, 68%)
     'CHEUI': hexToHsl('#6ab93c'), // hsl(101, 50%, 47%)
     'Tombo': hexToHsl('#57217b'), // hsl(279, 57%, 30%)
     'Tombo_com': hexToHsl('#b82373'), // hsl(325, 68%, 43%)
@@ -73,10 +73,10 @@ export const modelColorMap = {
 
 
 /**
- * 根据模型列表生成颜色数组。优先使用预设颜色。
- * @param {number} n - 模型数量。
- * @param {string[]} modelNames - 模型名称数组。
- * @returns {string[]} - HSL 颜色字符串数组。
+ * Generates an array of colors based on the model list. Prefers preset colors.
+ * @param {number} n - Number of models.
+ * @param {string[]} modelNames - Array of model names.
+ * @returns {string[]} - Array of HSL color strings.
  */
 export function generateColors(n, modelNames) {
     const colors = [];
@@ -85,7 +85,7 @@ export function generateColors(n, modelNames) {
         if (modelColorMap[model]) {
             colors.push(modelColorMap[model]);
         } else {
-            // 为未预设的模型生成备用颜色
+            // Generate fallback colors for models without presets
             colors.push(`hsl(${Math.round((360 / n) * i)}, 70%, 60%)`);
         }
     }
@@ -93,7 +93,7 @@ export function generateColors(n, modelNames) {
 }
 
 /**
- * CSV 文件的首选排序顺序。
+ * Preferred sorting order for CSV files.
  */
 export const preferredCsvOrder = [
     'm6A_002.csv',
