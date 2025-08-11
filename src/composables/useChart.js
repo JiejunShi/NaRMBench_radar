@@ -8,6 +8,7 @@ const custom_padding_label_to_point = 0
 const point_hover_showing_model_name = true
 const maxChartWidth = 1324
 const debug_chart = false
+const is_sorted_by_summed_values = ref(false)
 
 // Image cache
 const imageCache = ref({})
@@ -386,13 +387,20 @@ export function useChart(csvData, selectedKit, selectedCsv) {
         console.log('baseDatasets: modelData', modelData)
 
         // Sort the models in descending order based on the sum of indicators
+        // if is_sorted_by_summed_values, models are sorted by summed values; otherwise, models are sorted by original values
         const modelSums = Object.entries(sortData)
             .filter(([name]) => !name.includes('Max') && !name.includes('Min'))
             .map(([name, values]) => ({
                 name,
                 sum: values.reduce((acc, val) => acc + (isNaN(val) ? 0 : val), 0),
             }))
-            .sort((a, b) => b.sum - a.sum)
+            .sort((a, b) => {
+                if (is_sorted_by_summed_values.value) {
+                    return b.sum - a.sum
+                } else {
+                    return 0 // Return 0 to indicate no change to the original order
+                }
+            })
 
         const sortedModelNames = modelSums.map(({ name }) => name)
         modelNames.value = sortedModelNames
